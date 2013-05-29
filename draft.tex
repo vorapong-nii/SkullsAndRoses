@@ -1,0 +1,894 @@
+\documentclass[]{article}       % onecolumn (second format)
+\usepackage{graphicx}
+\usepackage{mathptmx}      % use Times fonts if available on your TeX system
+
+\usepackage[a4paper,twoside]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb,stmaryrd,fancyhdr,plain,mathrsfs}
+\usepackage[lined,linesnumbered,boxed,commentsnumbered,noend,algo2e]{algorithm2e}
+\usepackage{tikz}
+\usetikzlibrary{positioning,mindmap}
+\usetikzlibrary{shapes.multipart}
+\usepackage{tikz-3dplot}
+\usepackage{array,tabularx}
+
+\newcommand{\sr}{S\&{}R}
+
+\newcommand{\RB}{\textcolor{blue!50!black!90}{$R$}}
+\newcommand{\RG}{\textcolor{green!50!black!90}{$R$}}
+\newcommand{\SB}{\textcolor{blue!50!black!90}{$S$}}
+\newcommand{\SG}{\textcolor{green!50!black!90}{$S$}}
+\newcommand{\XB}{\textcolor{blue!50!black!90}{$X$}}
+\newcommand{\XG}{\textcolor{green!50!black!90}{$X$}}
+\newcommand{\YB}{\textcolor{blue!50!black!90}{$Y$}}
+\newcommand{\YG}{\textcolor{green!50!black!90}{$Y$}}
+
+\setlength{\oddsidemargin}{-0.4cm}
+\setlength{\evensidemargin}{-0.8cm} 
+\setlength{\topmargin}{-1cm}
+\textheight 24.4cm 
+\textwidth 17cm
+
+\author{Us}
+
+\title{Skull and Roses}
+
+\begin{document}
+%Tikz data
+\tikzstyle{situation}=[% The shape:
+circle split,
+% The rest
+very thick,draw=red!50!black!50,
+font=\ttfamily]
+\tikzstyle{situationblue}=[% The shape:
+circle split,
+% The rest
+very thick,draw=blue!50!black!50,
+font=\ttfamily]
+\tikzstyle{situationgreen}=[% The shape:
+circle split,
+% The rest
+very thick,draw=green!50!black!50,
+font=\ttfamily]
+\tikzstyle{p1}=[% The shape:
+% The rest
+color=blue!50!black!90,
+font=\ttfamily]
+\tikzstyle{p2}=[% The shape:
+% The rest
+color=green!50!black!90,
+font=\ttfamily]
+\tikzstyle{choice}=[% The shape:
+circle,minimum size=3mm,rounded corners=1.5mm,
+% The rest
+very thick,draw=black!50,
+top color=white,bottom color=black!20,
+font=\ttfamily]
+\tikzstyle{leef}=[% The shape:
+%circle,minimum size=3mm,rounded corners=1.5mm,
+%% The rest
+%very thick,draw=black!50,
+%top color=white,bottom color=black!20,
+font=\ttfamily]
+
+\maketitle
+
+\begin{abstract}
+Skull and Roses is a game of bluff played with $2$ kind of cards: \emph{skulls} and \emph{roses}. The players successively place hidden cards on their own pile till one them choose or have to bet. The bet consist in announcing how many roses  you think you can reveal without encountering a skull. As in poker game, other player can either pass (definitively) or bet higher -- limited by the total number of placed cards. If the challenger meet his bet, he wins one point, otherwise he randomly loose a card.\newline
+This game is quite challenging by mixing many concepts of game theory, including hidden games, bluff, dependant and successive instances, long term strategy, ...
+In this paper we studied some concept on the ... case and also provide results for the ... case.
+\end{abstract}
+
+\section{Introduction}
+The \emph{Skull \& Roses} game was created by Hervé \textsc{Marly}, illustrated by Rose \textsc{Kipik} and is edited by \emph{lui-même} since $2011$ -- in German and French as the moment this paper was submitted. The game received the price of \textsc{as d'or, jeu de l'année, Cannes 2011}.\newline
+Beside its own merits as game, and because of the various aspects of the interactions covered by \sr, we think that many applications can be found, as in economic or social sciences.
+
+\subsection{Original Rules}
+Every player possesses 4 cards: one \emph{skull} and three \emph{roses}.
+To win the match, one needs by twice to:
+\begin{itemize}
+\item make the most audacious bet,
+\item flip a number of cards corresponding to the bet number without flipping a skull.
+\end{itemize}
+We will call wining one of those phase as to \emph{win a challenge}.
+\paragraph{Setup:}
+Every player -- up to $6$ -- choose a family of card corresponding to one of the following family: 
+\emph{The Bulls}, \emph{The Snakes}, \emph{The Werewolves}, \emph{Himself}, \emph{The Panthers}, and \emph{The Eagles}.
+Additionally, each of them receive an additional token with two faces to count the number of challenges he won. A player is designed to be the first player.
+All the $4$ cards are hidden from other players.
+
+\paragraph{Start of a round}
+Every player choose one of his card and put it in front of him, showing only the \emph{family} side.
+
+\paragraph{Playing Cards or Set a Challenge}
+The first player can either put a card on top of his first one, either set a challenge. If he chose to play a card, his left neighbour can choose between playing a card or setting a challenge. And so on. If a player is out of cards to play, he has to set a challenge.
+
+\paragraph{Challenge}
+The player who set the challenge also announce a number higher or equal to $1$. Then the player on his left can either \emph{pass} or bet a higher number. And so on.
+A player that passed cannot contribute to this round again and have to wait for the next one. A new bet has to increase by at least one the previous one. A bet, including the original one cannot exceed the number of card played at this round -- betting on all the card is called \emph{burn out}.
+The challenge is definitively set when all the players except the challenger have passed, or that the challenger is trying a \emph{burn out}.
+
+\paragraph{Revelations}
+The challenger must reveal the number of cards he previously bet, according to the following rules:
+\begin{itemize}
+\item he starts by his own pile of cards. This one has to be empty for him to check the other piles.
+\item On a specific pile, he always reveals the top card.
+\item He can switch from a pile to any other one after revealing some of the current pile cards.
+\item The cards are revealed one by one.
+\end{itemize}
+
+\paragraph{Round: Win or lose}
+If a challenge is won, the challenger can flip his counter token. If it is the second flip, he wins the full match.
+Otherwise he has to discard a card. If the skull revealed is his own card, he can choose which card to secretly discard. If he revealed the skull of someone else,  the card is randomly chosen.
+
+\paragraph{Match: Win or lose}
+The only ways to win for a player are either to flip twice its counter token or to be the only one left.
+A player looses if (and only if):
+\begin{itemize}
+\item he does not own any card anymore,
+\item he only has one skull card left, and this one was revealed during the previous revelation phase.
+\end{itemize} 
+
+\subsection{Formulation of the problem}
+In this paper, we will design by $n$ the number of player, $r$, the original number of roses, $s$ the original number of skulls, and $w$ the number of wins required. We will use a variable $first$ to design the first player at a current state of the game.
+A game $G$ -- resp. $H$ -- is defined such that $G=(n,r,s,w)$ -- resp. $H=(n,r,s,w,first)$.\newline
+
+An \emph{instance} (round) is defined by the state of each player and the current first player. Given an instance $I$, $r_i$, $s_i$, and $w_i$ refers to the current number of roses, skulls, and wins of player $i$. Then the instance $I$ is defined by $I=|\left(\lbrace (r_i,s_i,w_i)\rbrace, first\right)$.\newline
+
+A situation is simply the list of cards already played at some point of an instance. Let $c_i$ refers to the list of cards played by player $i$. Then a situation $Sit$ is simply defined by $Sit={c_i|i\in\llbracket 1;n\rrbracket}$.\newline
+
+The aim of this study is to define the best strategy $Strat$ for a given player, through a full game $G$.
+
+\subsection{Hash}
+For a given situation $Sit$, we may use some hash function $h$ such as $h(RS|SR|R|S)=RS\varnothing SR\varnothing R\varnothing S)$.
+
+From a player $i$ point of view, $h_i(RS|X|Y|Z)=h_i(RS|Z|X|Y)=\cdots$.
+
+\subsection{Reduction}
+We can define two reduction functions $\sigma$ and $\rho$. $\sigma$ is such that we can delete any card of a player card list that precedes the last skull. For example, $\sigma(RS|SR|R|S)=\sigma(S|SR|R|S)=\sigma(RRRSSSRRRSS|SR|R|S)$.
+
+The second reduction, $\rho$ is similar, but conserves the number of cards preceding the last skull. It can be an important information depending of the strategies considered.
+
+\subsection{Function related to bet tree}
+First, we define a function $f$ such that, for any strategy $Strat$ and any situation $Sit$, $f(Strat,Sit)$ returns a unique bet tree.
+
+Secondly, $g$ is define from the set of all bet trees to $\left[ 0,1 \right] $. It returns the probability of "winning" from an "evaluated" bet tree.
+
+\begin{figure}
+\parbox{0.25\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=10mm and 5mm,text height=1.5ex,text depth=.30ex]
+\node (ss) [situation] {\SB\nodepart{lower}\SG};
+\node (srs) [situation,below=of ss] {\SB{} \RB\nodepart{lower}\SG};
+\node (srsr) [situation,below=of srs] {\SB{} \RB\nodepart{lower}\SG{} \RG};
+
+\path[->,very thick,red!50!black!90]   (ss) edge [left] node[p1] {\RB} (srs)
+			(srs) edge [right] node[p2] {\RG} (srsr);
+			
+\end{tikzpicture}
+\end{center}
+}\parbox{0.25\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=10mm and 5mm,text height=1.5ex,text depth=.30ex]
+\node (ss) [situation] {\SB\nodepart{lower}\RG};
+\node (srr) [situation,below=of ss] {\SB{} \RB\nodepart{lower}\RG};
+\node (srrs) [situation,below=of srr] {\SB{} \RB\nodepart{lower}\RG{} \SG};
+
+\path[->,very thick,red!50!black!90] 	(ss) edge [left] node[p1] {\RB} (srr)
+			(srr) edge [right] node[p2] {\SG} (srrs);
+			
+\end{tikzpicture}
+\end{center}
+}\parbox{0.25\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=10mm and 5mm,text height=1.5ex,text depth=.30ex]
+\node (rs) [situation] {\RB\nodepart{lower}\SG};
+\node (rss) [situation,below=of ss] {\RB{} \SB\nodepart{lower}\SG};
+\node (rssr) [situation,below=of srs] {\RB{} \SB\nodepart{lower}\SG{} \RG};
+
+\path[->,very thick,red!50!black!90] 	(rs) edge [left] node[p1] {\SB} (rss)
+			(rss) edge [right] node[p2] {\RG} (rssr);
+			
+\end{tikzpicture}
+\end{center}
+}\parbox{0.25\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=10mm and 5mm,text height=1.5ex,text depth=.30ex]
+\node (rr) [situation] {\RB\nodepart{lower}\RG};
+\node (rsr) [situation,below=of ss] {\RB{} \SB\nodepart{lower}\RG};
+\node (rsrs) [situation,below=of srs] {\RB{} \SB\nodepart{lower}\RG{} \SG};
+
+\path[->,very thick,red!50!black!90] 	(rr) edge [left] node[p1] {\SB} (rsr)
+			(rsr) edge [right] node[p2] {\SG} (rsrs);
+			
+\end{tikzpicture}
+\end{center}}
+\caption{List of the possible situation}
+\label{fig:situation1}
+\end{figure}
+
+\begin{figure}
+\parbox{0.25\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=12mm and 8mm,text depth=.1ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situation,->] {\SB\nodepart{lower}\SG}
+      child {node[choice] {} 
+		child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_2$}}
+      edge from parent node[p1,left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}\parbox{0.25\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=12mm and 8mm,text depth=.1ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situation,->] {\SB\nodepart{lower}\RG}
+      child {node[choice] {} 
+		child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_2$}}
+      edge from parent node[p1,left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}\parbox{0.25\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=12mm and 8mm,text depth=.1ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situation,->] {\RB\nodepart{lower}\SG}
+      child {node[choice] {} 
+		child {node[leef] {$1$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_2$}}
+      edge from parent node[p1,left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}\parbox{0.25\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=12mm and 8mm,text depth=.1ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situation,->] {\RB\nodepart{lower}\RG}
+      child {node[choice] {} 
+		child {node[leef] {$1$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$0$} edge from parent node[p2,right] {$b_2$}}
+      edge from parent node[p1,left] {$b_1$}
+    }
+      child {node[leef] {$1$} edge from parent node[p1,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}
+\caption{Bet for a 2 cards situation}
+\label{fig:2cards}
+\end{figure}
+
+\begin{figure}
+\parbox{0.25\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=12mm and 8mm,text depth=.1ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situationblue,->] {\SB\nodepart{lower}\XG}
+      child {node[choice] {} 
+		child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_2$}}
+      edge from parent node[p1,left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}\parbox{0.25\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=12mm and 8mm,text depth=.1ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situationblue,->] {\RB\nodepart{lower}\XG}
+      child {node[choice] {} 
+		child {node[leef] {$1$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$\frac{1}{2}$} edge from parent node[p2,right] {$b_2$}}
+      edge from parent node[p1,left] {$b_1$}
+    }
+      child {node[leef] {$\frac{1}{2}$} edge from parent node[p1,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}\parbox{0.25\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=12mm and 8mm,text depth=.1ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situationgreen,->] {\XB\nodepart{lower}\SG}
+      child {node[choice] {} 
+		child {node[leef] {$\frac{1}{2}$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_2$}}
+      edge from parent node[p1,left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}\parbox{0.25\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=12mm and 8mm,text depth=.1ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situationgreen,->] {\XB\nodepart{lower}\RG}
+      child {node[choice] {} 
+		child {node[leef] {$\frac{1}{2}$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$\frac{1}{2}$} edge from parent node[p2,right] {$b_2$}}
+      edge from parent node[p1,left] {$b_1$}
+    }
+      child {node[leef] {$\frac{1}{2}$} edge from parent node[p1,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}
+\caption{Different views of both players}
+\label{fig:2cardsviews}
+\end{figure}
+
+\begin{figure}
+\parbox{0.50\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=15mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situation,->] {\SB{} \RB\nodepart{lower}\SG}
+  	  child {node[choice] {} 
+  	  	child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+			child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}}
+		edge from parent node[p1,left] {$b_2$}
+		}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,left] {$b_1$}
+    }
+      child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}\parbox{0.50\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=15mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situation,->] {\SB{} \RB\nodepart{lower}\RG}
+  	  child {node[choice] {} 
+  	  	child {node[leef] {$0$} edge from parent node[p1,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+			child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}}
+		edge from parent node[p1,left] {$b_2$}
+		}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,left] {$b_1$}
+    }
+      child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$0$} edge from parent node[p1,left] {$p$}}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}\newline\parbox{0.50\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=15mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situation,->] {\RB{} \SB\nodepart{lower}\SG}
+  	  child {node[choice] {} 
+  	  	child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+			child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}}
+		edge from parent node[p1,left] {$b_2$}
+		}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,left] {$b_1$}
+    }
+      child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}\parbox{0.50\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=15mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situation,->] {\RB{} \SB\nodepart{lower}\RG}
+  	  child {node[choice] {} 
+  	  	child {node[leef] {$0$} edge from parent node[p1,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+			child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}}
+		edge from parent node[p1,left] {$b_2$}
+		}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,left] {$b_1$}
+    }
+      child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}
+\caption{Bet for 3 cards situations}
+\label{fig:3cardsbet}
+\end{figure}
+
+\begin{figure}
+\parbox{0.50\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=15mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situationblue,->] {\SB{} \RB\nodepart{lower}\XG}
+  	  child {node[choice] {} 
+  	  	child {node[leef] {$\frac{1}{2}$} edge from parent node[p1,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+			child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}}
+		edge from parent node[p1,left] {$b_2$}
+		}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,left] {$b_1$}
+    }
+      child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$\frac{1}{2}$} edge from parent node[p1,left] {$p$}}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}\parbox{0.50\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=15mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situationblue,->] {\RB{} \SB\nodepart{lower}\XG}
+  	  child {node[choice] {} 
+  	  	child {node[leef] {$\frac{1}{2}$} edge from parent node[p1,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+			child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}}
+		edge from parent node[p1,left] {$b_2$}
+		}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,left] {$b_1$}
+    }
+      child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}\newline\parbox{0.50\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=15mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situationgreen,->] {\XB{} \YB\nodepart{lower}\SG}
+  	  child {node[choice] {} 
+  	  	child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+			child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}}
+		edge from parent node[p1,left] {$b_2$}
+		}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,left] {$b_1$}
+    }
+      child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}\parbox{0.50\linewidth}{
+\begin{center}
+\begin{tikzpicture}[node distance=15mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situationgreen,->] {\XB{} \YB\nodepart{lower}\RG}
+  	  child {node[choice] {} 
+  	  	child {node[leef] {$0$} edge from parent node[p1,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+			child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}}
+		edge from parent node[p1,left] {$b_2$}
+		}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,left] {$b_1$}
+    }
+      child {node[leef] {$1$} edge from parent node[p2,right] {$b_3$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$\frac{1}{2}$} edge from parent node[p1,left] {$p$}}
+        child {node[leef] {$0$} edge from parent node[p1,right] {$b_3$}}
+      edge from parent node[p2,right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+}
+\caption{Views for 3 cards situations}
+\label{fig:3cardsview}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[
+level distance=15mm,level 1/.style={sibling distance=30mm},level 2/.style={sibling distance=15mm},level 3/.style={sibling distance=15mm},
+node distance=12mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situation,->] {\SB{} \RB\nodepart{lower}\SG{} \RG}
+  	  child {node[choice] {} 
+  	    child {node[choice] {} 
+  	  		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        	child {node[choice] {} 
+				child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+				child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+			edge from parent node[p1,left] {$b_3$}
+			}
+        	child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+      	edge from parent node[p2,above left] {$b_2$}
+    	}
+  	  	child {node[leef] {$1$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+        child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,above right] {$b_3$}
+		}
+      edge from parent node[p1,above left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,left] {$b_3$}
+    }
+      child {node[choice] {} 
+  	  	child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,left] {$b_3$}
+		}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,above right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}[
+level distance=15mm,level 1/.style={sibling distance=30mm},level 2/.style={sibling distance=15mm},level 3/.style={sibling distance=15mm},
+node distance=12mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situation,->] {\SB{} \RB\nodepart{lower}\RG{} \SG}
+  	  child {node[choice] {} 
+  	    child {node[choice] {} 
+  	  		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        	child {node[choice] {} 
+				child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+				child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+			edge from parent node[p1,left] {$b_3$}
+			}
+        	child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+      	edge from parent node[p2,above left] {$b_2$}
+    	}
+  	  	child {node[leef] {$1$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+        child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,above right] {$b_3$}
+		}
+      edge from parent node[p1,above left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,left] {$b_3$}
+    }
+      child {node[choice] {} 
+  	  	child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,left] {$b_3$}
+		}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,above right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+\caption{Bet for 4 cards situations: \SB{} \RB}
+\label{fig:4cardsbet1}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[
+level distance=15mm,level 1/.style={sibling distance=30mm},level 2/.style={sibling distance=15mm},level 3/.style={sibling distance=15mm},
+node distance=12mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situation,->] {\RB{} \SB\nodepart{lower}\SG{} \RG}
+  	  child {node[choice] {} 
+  	    child {node[choice] {} 
+  	  		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        	child {node[choice] {} 
+				child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+				child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+			edge from parent node[p1,left] {$b_3$}
+			}
+        	child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+      	edge from parent node[p2,above left] {$b_2$}
+    	}
+  	  	child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+        child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,above right] {$b_3$}
+		}
+      edge from parent node[p1,above left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,left] {$b_3$}
+    }
+      child {node[choice] {} 
+  	  	child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,left] {$b_3$}
+		}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,above right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}[
+level distance=15mm,level 1/.style={sibling distance=30mm},level 2/.style={sibling distance=15mm},level 3/.style={sibling distance=15mm},
+node distance=12mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situation,->] {\RB{} \SB\nodepart{lower}\RG{} \SG}
+  	  child {node[choice] {} 
+  	    child {node[choice] {} 
+  	  		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        	child {node[choice] {} 
+				child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+				child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+			edge from parent node[p1,left] {$b_3$}
+			}
+        	child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+      	edge from parent node[p2,above left] {$b_2$}
+    	}
+  	  	child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+        child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,above right] {$b_3$}
+		}
+      edge from parent node[p1,above left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,left] {$b_3$}
+    }
+      child {node[choice] {} 
+  	  	child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,left] {$b_3$}
+		}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,above right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+\caption{Bet for 4 cards situations: \RB{} \SB}
+\label{fig:4cardsbet2}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[
+level distance=15mm,level 1/.style={sibling distance=30mm},level 2/.style={sibling distance=15mm},level 3/.style={sibling distance=15mm},
+node distance=12mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situationblue,->] {\SB{} \RB\nodepart{lower}\XG{} \YG}
+  	  child {node[choice] {} 
+  	    child {node[choice] {} 
+  	  		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        	child {node[choice] {} 
+				child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+				child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+			edge from parent node[p1,left] {$b_3$}
+			}
+        	child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+      	edge from parent node[p2,above left] {$b_2$}
+    	}
+  	  	child {node[leef] {$1$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+        child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,above right] {$b_3$}
+		}
+      edge from parent node[p1,above left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,left] {$b_3$}
+    }
+      child {node[choice] {} 
+  	  	child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,left] {$b_3$}
+		}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,above right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}[
+level distance=15mm,level 1/.style={sibling distance=30mm},level 2/.style={sibling distance=15mm},level 3/.style={sibling distance=15mm},
+node distance=12mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situationblue,->] {\RB{} \SB\nodepart{lower}\XG{} \YG}
+  	  child {node[choice] {} 
+  	    child {node[choice] {} 
+  	  		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        	child {node[choice] {} 
+				child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+				child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+			edge from parent node[p1,left] {$b_3$}
+			}
+        	child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+      	edge from parent node[p2,above left] {$b_2$}
+    	}
+  	  	child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+        child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,above right] {$b_3$}
+		}
+      edge from parent node[p1,above left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,left] {$b_3$}
+    }
+      child {node[choice] {} 
+  	  	child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,left] {$b_3$}
+		}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,above right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+\caption{View for 4 cards situations: \textcolor{blue!50!black!90}{blue}}
+\label{fig:4cardsview1}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[
+level distance=15mm,level 1/.style={sibling distance=30mm},level 2/.style={sibling distance=15mm},level 3/.style={sibling distance=15mm},
+node distance=12mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situationgreen,->] {\XB{} \YB\nodepart{lower}\SG{} \RG}
+  	  child {node[choice] {} 
+  	    child {node[choice] {} 
+  	  		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        	child {node[choice] {} 
+				child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+				child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+			edge from parent node[p1,left] {$b_3$}
+			}
+        	child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+      	edge from parent node[p2,above left] {$b_2$}
+    	}
+  	  	child {node[leef] {$\frac{1}{2}$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+        child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,above right] {$b_3$}
+		}
+      edge from parent node[p1,above left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,left] {$b_3$}
+    }
+      child {node[choice] {} 
+  	  	child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,left] {$b_3$}
+		}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,above right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+\begin{center}
+\begin{tikzpicture}[
+level distance=15mm,level 1/.style={sibling distance=30mm},level 2/.style={sibling distance=15mm},level 3/.style={sibling distance=15mm},
+node distance=12mm and 8mm,text depth=.2ex,edge from parent/.style={black,->,very thick,draw}]
+  \node[situationgreen,->] {\XB{} \YB\nodepart{lower}\RG{} \SG}
+  	  child {node[choice] {} 
+  	    child {node[choice] {} 
+  	  		child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+        	child {node[choice] {} 
+				child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+				child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+			edge from parent node[p1,left] {$b_3$}
+			}
+        	child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+      	edge from parent node[p2,above left] {$b_2$}
+    	}
+  	  	child {node[leef] {$\frac{1}{2}$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+        child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,above right] {$b_3$}
+		}
+      edge from parent node[p1,above left] {$b_1$}
+    }
+      child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}
+    }
+      child {node[choice] {} 
+		child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,left] {$b_3$}
+    }
+      child {node[choice] {} 
+  	  	child {node[leef] {$0$} edge from parent node[p2,left] {$p$}}
+		child {node[choice] {} 
+			child {node[leef] {$1$} edge from parent node[p1,left] {$p$}}
+			child {node[leef] {$0$} edge from parent node[p1,right] {$b_4$}}
+		edge from parent node[p2,left] {$b_3$}
+		}
+        child {node[leef] {$1$} edge from parent node[p2,right] {$b_4$}}
+      edge from parent node[p1,above right] {$b_2$}
+    };
+\end{tikzpicture}
+\end{center}
+\caption{View for 4 cards situations: \textcolor{green!50!black!90}{green}}
+\label{fig:4cardsview2}
+\end{figure}
+
+\end{document}
