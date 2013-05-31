@@ -4,31 +4,7 @@
 %% 2013/05/29
 %% Using bare_conf.tex by Michael Shell
 
-
-
-
-
-% Note that the a4paper option is mainly intended so that authors in
-% countries using A4 can easily print to A4 and see how their papers will
-% look in print - the typesetting of the document will not typically be
-% affected with changes in paper size (but the bottom and side margins will).
-% Use the testflow package mentioned above to verify correct handling of
-% both paper sizes by the user's LaTeX system.
-%
-% Also note that the "draftcls" or "draftclsnofoot", not "draft", option
-% should be used if it is desired that the figures are to be displayed in
-% draft mode.
-%
 \documentclass[conference]{IEEEtran}
-% Add the compsoc option for Computer Society conferences.
-%
-% If IEEEtran.cls has not been installed into the LaTeX system files,
-% manually specify the path to it like:
-% \documentclass[conference]{../sty/IEEEtran}
-
-
-
-
 
 % Some very useful LaTeX packages include:
 % (uncomment the ones you want to load)
@@ -316,46 +292,17 @@
 % affiliations
 \author{\IEEEauthorblockN{Jean-François Baffier}
 \IEEEauthorblockA{Graduate School of \\Information Science and Technology \\
-The Universirty of Tokyo\\
-Email: @is.s.u-tokyo.ac.jp}
+The University of Tokyo\\
+Email: jf.baffier@is.s.u-tokyo.ac.jp}
 \and
 \IEEEauthorblockN{Alonso J. Gragera Aguaza}
 \IEEEauthorblockA{Graduate School of \\Information Science and Technology \\
-The Universirty of Tokyo\\
+The University of Tokyo\\
 Email: alonso@is.s.u-tokyo.ac.jp}
 \and
 \IEEEauthorblockN{Vorapong Suppakitpaisarn	}
 \IEEEauthorblockA{National Institute of Informatics\\
-Email: vorapong@nii.jp}}
-
-% conference papers do not typically use \thanks and this command
-% is locked out in conference mode. If really needed, such as for
-% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
-% after \documentclass
-
-% for over three affiliations, or if they all won't fit within the width
-% of the page, use this alternative format:
-% 
-%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
-%Homer Simpson\IEEEauthorrefmark{2},
-%James Kirk\IEEEauthorrefmark{3}, 
-%Montgomery Scott\IEEEauthorrefmark{3} and
-%Eldon Tyrell\IEEEauthorrefmark{4}}
-%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
-%Georgia Institute of Technology,
-%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
-%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
-%Email: homer@thesimpsons.com}
-%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
-%Telephone: (800) 555--1212, Fax: (888) 555--1212}
-%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
-
-
-
-
-% use for special paper notices
-%\IEEEspecialpapernotice{(Invited Paper)}
-
+Email: vorapong@nii.ac.jp}}
 
 
 
@@ -365,18 +312,11 @@ Email: vorapong@nii.jp}}
 
 \begin{abstract}
 %\boldmath
-Skull and Roses is a game of bluff played with $2$ kind of cards: \emph{skulls} and \emph{roses}. The players successively place hidden cards on their own pile till one them choose or have to bet. The bet consist in announcing how many roses  you think you can reveal without encountering a skull. As in poker game, other player can either pass (definitively) or bet higher, if the challenger meet his bet, he wins one point, otherwise he loose a card.\newline
+Skull and Roses is a game of bluff played with 2 kind of cards: \emph{skulls} and \emph{roses}. The players successively place hidden cards on their own pile till one them bets. The bet consist in announcing how many roses you think that you can reveal without encountering a skull in the process. After a bet is set, as in poker, the other players can either pass (definitively) or bet higher, if the challenger meet his bet, he wins one point, otherwise he loose one card.\newline
 
-This game is quite challenging by mixing many concepts of game theory, including hidden games, bluff, dependant and successive instances and long term strategy.\newline
-
-In this paper we studied in detail some properties on the game, give a model for the general case and also provide results for the lower and upper bounds of the game tree.
+In this paper we studied in detail some properties on the game, give a model for the general case and also provide results for the lower and upper bounds of the game tree.\newline
 \end{abstract}
-% IEEEtran.cls defaults to using nonbold math in the Abstract.
-% This preserves the distinction between vectors and scalars. However,
-% if the conference you are submitting to favors bold math in the abstract,
-% then you can use LaTeX's standard command \boldmath at the very start
-% of the abstract to achieve this. Many IEEE journals/conferences frown on
-% math in the abstract anyway.
+
 
 % no keywords
 
@@ -403,12 +343,12 @@ Beside its own merits as game, and because of the various aspects of the interac
  
 %\hfill January 11, 2007
 
-\subsection{Subsection Heading Here}
-Subsection text here.
+%\subsection{Subsection Heading Here}
+%Subsection text here.
 
 
-\subsubsection{Subsubsection Heading Here}
-Subsubsection text here.
+%\subsubsection{Subsubsection Heading Here}
+%Subsubsection text here.
 
 
 % An example of a floating figure using the graphicx package.
@@ -519,8 +459,9 @@ Subsection text here.
 
 \section{Applications}
 
+
 \section{Conclusion}
-The conclusion goes here.
+This game is quite challenging by mixing many concepts of game theory, including hidden games, bluff, dependant and successive instances and long term strategy.
 
 
 
