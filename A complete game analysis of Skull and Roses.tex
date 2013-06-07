@@ -449,13 +449,17 @@ Subsection text here.
 
 \section{Bounds}
 
+\subsection{Lower bound}
+Subsection text here.
+\sr(P,S,R,W) \newline
+|W|.2^|P|
 
 \subsection{Upper bound}
 \sr(P,S,R,W) \newline
-PxRxSxW (without betting)
+|w-1|.(|PxRxS|+|P|.(|R|+|S|)) + (|P|.(|R|+|S|)).(|PxRxS|+|P|.(|R|+|S|))
 
-\subsection{Lower bound}
-Subsection text here.
+|w-1|.(|PxRxS|+|P|.(|R|+|S|)) + ....
+
 
 \section{Complexity}
 \sr(P,S,R,W) \newline
