@@ -337,8 +337,9 @@ In this paper we studied in detail some properties on the game, give a model for
 
 
 \section{Introduction}
-The \emph{Skull \& Roses} game was created by Hervé \textsc{Marly}, illustrated by Rose \textsc{Kipik} and is edited by \emph{lui-même} since $2011$ -- in German and French as the moment this paper was submitted. The game received the price of \textsc{as d'or, jeu de l'année, Cannes 2011}.\newline
-Beside its own merits as game, and because of the various aspects of the interactions covered by \sr we think that many applications can be found, as in economic or social sciences.
+The \emph{Skull \& Roses} game was created by Hervé \textsc{Marly}, illustrated by Rose \textsc{Kipik} and is edited by \emph{lui-même} since $2011$ -- in German and French as the moment this paper was submitted. The game received the price of \textsc{as d'or, jeu de l'année, Cannes 2011}.\\
+
+Beside its own merits as game, and because of the various aspects of the interactions covered by \sr \ we think that many applications can be found, as in economic or social sciences.\\
 
 %\hfill mds
  
@@ -450,16 +451,30 @@ Subsection text here.
 \section{Bounds}
 
 \subsection{Lower bound}
-Subsection text here.
-\sr(P,S,R,W) \newline
-|W|.2^|P|
+The lower bound for the number of states on a \sr(P,S,R,W) game tree is: 
+$$W\cdot2^P$$
+
+This is correspond with the trivial case where the first player wins all the challenges in a row and in his first move. The proof that this is the minimum possible tree is immediate, and consist in 3 steps: \\
+
+- Proving that a game tree with a unsuccessful challenge is always bigger that the same game tree without it.\\
+
+- Proving that a game tree with more player winning challenges is always bigger than the same game tree with less players winning.\\
+
+- Proving that a game tree with the n player winning is always bigger than the same game tree with n-1 player winning.\\
+
 
 \subsection{Upper bound}
 \sr(P,S,R,W) \newline
-|w-1|.(|PxRxS|+|P|.(|R|+|S|)) + (|P|.(|R|+|S|)).(|PxRxS|+|P|.(|R|+|S|))
 
-|w-1|.(|PxRxS|+|P|.(|R|+|S|)) + ....
+The most obvious upper bound is:
 
+$$(W-1) \cdot (P \cdot R \cdot S + P \cdot (R+S)) + (P \cdot (R+S)) \cdot (P \cdot R \cdot S + P \cdot (R+S))$$
+
+A the more realistic upper bound is:
+
+$$(W-1) \cdot (P \cdot R \cdot S + P \cdot (R+S)) + ....$$
+
+\ \\
 
 \section{Complexity}
 \sr(P,S,R,W) \newline
