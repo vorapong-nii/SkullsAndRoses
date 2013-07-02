@@ -1,0 +1,58 @@
+****Alonso-san, you may want to talk with this guy 
+Reijer Grimbergen (Tokyo University of Technology)
+http://www2.teu.ac.jp/gamelab/RESEARCH/backgroundmain.html
+He is the dutch researcher, full professor working on Shogi in Japan. He is quite well-known, and I am sure he can introduce you to the community.
+(You might have already met him in the workshop.)
+
+****In GPW2012, around 70% of talks are using monte-carlo tree search, around 50% is working on Shogi or Go.
+Then, we should use Monte-carlo tree search to appeal the committee.
+
+------------------------------------------------------------------------------------------------------------
+AN ANALYSIS OF UCT IN MULTI-PLAYER GAMES
+Nathan Sturtevant(U. of Alberta)
+- UCT computes an equilibrium strategy, which may be mixed, in a multi-player game tree
+- Use UCT in Chinese Checker, Hearts, Spades
+
+@INPROCEEDINGS{Sturtevant08ananalysis,
+    author = {Nathan R. Sturtevant},
+    title = {An analysis of UCT in multi-player games},
+    booktitle = {In Computers and Games},
+    year = {2008}
+}
+--------------------------------------------------------------------------------------------------------------
+Monte-Carlo Tree Search in Poker using Expected Reward Distributions
+Very good reading, we should generalize this work.
+Guy Van den Broeck, Kurt Driessens, Jan Ramon (K.U. Leuven)
+(Reading this slide will take you at most 10 mins, but you can get many useful ideas)
+Presentation: https://lirias.kuleuven.be/bitstream/123456789/245774/3/mctspoker4.pdf
+Manuscript: https://lirias.kuleuven.be/bitstream/123456789/250970/1/bnaic2009_paper_85.pdf
+Full Version: http://link.springer.com/chapter/10.1007%2F978-3-642-05224-8_28
+
+@INCOLLECTION{raey,
+  author = {Broeck, Guy and Driessens, Kurt and Ramon, Jan},
+  title = {Monte-Carlo Tree Search in Poker Using Expected Reward Distributions},
+  booktitle = {Advances in Machine Learning},
+  publisher = {Springer Berlin Heidelberg},
+  year = {2009},
+  editor = {Zhou, Zhi-Hua and Washio, Takashi},
+  volume = {5828},
+  series = {Lecture Notes in Computer Science},
+  pages = {367-381},
+  doi = {10.1007/978-3-642-05224-8_28},
+  isbn = {978-3-642-05223-1},
+  url = {http://dx.doi.org/10.1007/978-3-642-05224-8_28}
+}
+------------------------------------------------------------------------------------------------------------
+Latest complete survey paper on Monte-Carlo Game Search (with 240 references!!!)
+http://www.doc.ic.ac.uk/~sgc/papers/browne_ieee12.pdf
+A Survey of Monte Carlo Tree Search Methods
+Cameron Browne, Edward Powley, Daniel Whitehouse, 
+Simon Lucas, Peter I. Cowling, Philipp Rohlfshagen,
+Stephen Tavener, Diego Perez, Spyridon Samothrakis and Simon Colton
+---------------------------------------------------------------------------------------------------------------
+Broad Pattern Matching for the Opening Moves in Go (Takuro Honda)
+https://dspace.jaist.ac.jp/dspace/bitstream/10119/11324/3/abstract.pdf
+The work by the group Alonso-san met at JAIST that he might have already discussed in the workshop.
+This work is also presented in last year's conference.
+--------------------------------------------------------------------------------------------------------------
+
