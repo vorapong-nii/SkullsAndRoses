@@ -1,0 +1,363 @@
+%% Game Informatics Workshop 2013
+%% A complete game analysis of "Skull and Roses"
+%% V1.0
+%% 2013/05/29
+%% Using bare_conf.tex by Michael Shell
+
+\documentclass[conference]{IEEEtran}
+
+\usepackage{amsmath,amsfonts,amssymb,stmaryrd,fancyhdr,plain,mathrsfs,fixltx2e,theorem}
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** CITATION PACKAGES ***
+%
+%\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 4.0 (2003-05-27) and later if using hyperref.sty. cite.sty does
+% not currently provide for hyperlinked citations.
+% The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\newcommand{\sr}{S\&{}R}
+\newtheorem{thm}{Theorem}
+\newtheorem{pry}{Property}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{A complete game analysis of ``Skull and Roses"}
+
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Baffier, Jean-François}
+\IEEEauthorblockA{Graduate School of \\Information Science and Technology \\
+The University of Tokyo\\
+Email: jf.baffier@is.s.u-tokyo.ac.jp}
+\and
+\IEEEauthorblockN{Gragera Aguaza, Alonso J.}
+\IEEEauthorblockA{Graduate School of \\Information Science and Technology \\
+The University of Tokyo\\
+Email: alonso@is.s.u-tokyo.ac.jp}
+\and
+\IEEEauthorblockN{Suppakitpaisarn,Vorapong}
+\IEEEauthorblockA{National Institute of Informatics\\
+Email: vorapong@nii.ac.jp}}
+
+
+
+% make the title area
+\maketitle
+
+
+\begin{abstract}
+%\boldmath
+Skull and Roses is a game of bluff played with 2 kind of cards: \emph{skulls} and \emph{roses}. The players successively place hidden cards on their own pile till one of them bets.
+The bet consists in announcing how many roses you think that you can reveal without encountering a skull in the process. After a bet is set, as in poker,
+the other players can either pass (definitively) or bet higher, if the challenger meet his bet, he wins one point, otherwise he looses one card.\newline
+
+In this paper, we study in detail... %some properties on the game, give a model for the general case and also provide results for the lower and upper bounds of the game tree and \dots .\newline
+\end{abstract}
+
+
+% no keywords
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+
+\section{Introduction}
+The \emph{Skull \& Roses} game was created by Hervé \textsc{Marly}, illustrated by Rose \textsc{Kipik} and is edited by \emph{lui-même} since $2011$ -- in German, French and English as the moment this paper was submitted. The game received the price of \textsc{as d'or, jeu de l'année, Cannes 2011}.\\
+
+
+
+\section{General model}
+
+\subsection{Notation}
+In this paper, we will design by $P$ the number of player, $S$ the original number of skulls, $R$ the original number of roses, and $W$ the number of wins required. A game is defined such that \sr(P,S,R,W) \newline
+
+%An \emph{instance} (round) is defined by the state of each player and the current first player. Given an instance $I$, $r_i$, $s_i$, and $w_i$ refers to the current number of roses, skulls, and wins of player $i$. Then the instance $I$ is defined by $I=|\left(\lbrace (r_i,s_i,w_i)\rbrace, first\right)$.\newline
+
+%A situation is simply the list of cards already played at some point of an instance. Let $c_i$ refers to the list of cards played by player $i$. Then a situation $Sit$ is simply defined by $Sit={c_i|i\in\llbracket 1;n\rrbracket}$.\newline
+
+%The aim of this study is to define the best strategy $Strat$ for a given player, through a full game $G$.
+
+\subsection{Formal rules}
+Uncomment %http://www.skull-and-roses.com/pdf/Skull_rules_Us.pdf
+
+
+
+\subsection{Representation}
+?
+
+
+\section{Properties}
+
+\subsection{Pile size difference}
+
+\begin{pry}[Pile size difference]
+In any situation inside a round, the difference between any pair of player's piles size cannot be more than $1$.
+\end{pry}
+
+\subsection{Bet tree size}
+
+\begin{thm}[Bet tree size]
+Let the number of cards played $c$ and the actual number of players $p$ for the current situation, the number of leaves of the bet tree is:
+\[ 
+\sum^c_{j=1} \binom{c}{j} \binom{p-3+j}{j-1}_{.}
+\]
+\end{thm}
+
+
+
+
+
+% \subsection{Hash function}
+% %For a given situation $Sit$, we may use some hash function $h$ such as $h(RS|SR|R|S)=RS\varnothing SR\varnothing R\varnothing S)$.
+% 
+% %From a player $i$ point of view, $h_i(RS|X|Y|Z)=h_i(RS|Z|X|Y)=\cdots$.
+% 
+% We can define two hashing functions $H_\sigma$ and $H_\rho$. $H_\sigma$ is such that we can delete any card of a player card list that precedes the last skull. For example, $H_\sigma(RS|SR|R|S)=H_\sigma(S|SR|R|S)=H_\sigma(RRRSSSRRRSS|SR|R|S)$.
+% 
+% The second hashing, $H_\rho$ is similar, but conserves the number of cards preceding the last skull. It can be an important information depending of the strategies considered.
+
+
+%\subsection{Function related to bet tree}
+%First, we define a function $f$ such that, for any strategy $Strat$ and any situation $Sit$, $f(Strat,Sit)$ returns a unique bet tree.
+%
+%Secondly, $g$ is define from the set of all bet trees to $\left[ 0,1 \right] $. It returns the probability of "winning" from an "evaluated" bet tree.
+
+%\subsection{Non-sense moves}
+%Subsection text here.
+
+\section{Boundaries}
+\subsection{Game length}
+
+\subsubsection{Minimum}
+\ \\The minimum number of moves for a \sr(P,S,R,W) game is: 
+\[
+2 \cdot \min \left( W,(P-1)(R+S)\right)
+\]
+
+This is correspond with the case where the first player wins all the challenges in a row and in his first move or all players lose all the challenges. 
+\\
+
+\subsubsection{Maximum}
+\ \\The minimum number of moves for a \sr(P,S,R,W) game is: 
+\[ 
+(2M-1)(W-1)P + (M^2 - MP) + (P^2 - P)
+\]
+
+\[ 
+(2M-1)(W-1)P + (M^2 + P^2 - (M-1)P) 
+\]
+
+This is correspond with the case where all players wins W-1 the challenges in a row, then all players lose R+(S-1) cards and at the end they get eliminated one by one.
+\\
+
+
+%\subsubsection{Upper bound}
+%\ \\The minimum number of moves for a \sr(P,S,R,W) game is: 
+%\[ 
+%(2M-1)(W-1)P + (M^2 - P^2) + (P^2 - 1)
+%\]
+%
+%\[ 
+%(2M-1)(W-1)P + (M^2 - 1)
+%\]
+%
+%This is correspond with the case where all players wins W-1 the challenges in a row, then all players lose R+(S-1) cards and at the end they get eliminated one by one.
+%\\
+
+%\subsubsection{Upper bound}
+%The most obvious upper bound is:
+%
+%\[ (2M-1)(W-1)P+2M^2\]
+%
+%where $M=(R+S)P$
+
+
+\subsection{State-space size}
+
+\subsubsection{Lower bound}
+\ \\The most obvious lower bound is:
+$$((S+1) \cdot (R+1) \cdot (W))^P + (((S+1) \cdot (R+1))^P \cdot (W)^{P-1})$$
+
+
+%\subsubsection{Lower bound}
+%$$P \cdot (S+1)^P \cdot (R+1)^P \cdot (W+1)^P$$
+%
+%$$P \cdot ((S+1) \cdot (R+1) \cdot (W+1))^P$$
+
+\subsubsection{Upper bound}
+\ \\The most obvious upper bound is:
+
+$$P \cdot (S+1)^P \cdot (R+1)^P \cdot (W+1)^P \cdot P \cdot (S+R) \cdot 2^P \cdot (S+R) \cdot (2 \cdot (S+1) \cdot \binom {S+R} {R})^P$$
+
+$$  ((S+R) \cdot P)^2 \cdot (2^2 \cdot(S+1)^2 \cdot (R+1) \cdot (W+1) \cdot \binom {S+R} {R})^P$$
+
+%\subsubsection{Upper bound}
+%The most obvious upper bound is:
+%
+%$$P \cdot (S+1)^P \cdot (R+1)^P \cdot (W+1)^P \cdot P \cdot (S+R) \cdot 2^P \cdot ((S+1) \cdot (R+1) \cdot \binom {S+R} {R})^P$$
+%
+%$$  (S+R) \cdot P^2 \cdot (2 \cdot(S+1)^2 \cdot (R+1)^2 \cdot (W+1) \cdot \binom {S+R} {R})^P$$
+
+
+
+\subsection{Game tree size}
+
+\subsubsection{Lower bound}
+\ \\The most obvious upper bound is:
+
+$$3^{\min(W,(R+S)(P-1))}$$
+
+\ \\
+
+\subsubsection{Upper bound}
+\ \\The most obvious upper bound is:
+
+$$(2P)^{((S+R)P+1)(WP+(S+R)P)}$$
+
+\ \\
+
+\section{Complexity}
+
+\subsection{From POS CNF to \sr(2,S,R,1)}
+\sr(2,m,o,1) is PSpace-complete \newline
+
+\subsection{From \sr(2,S,R,1) to POS CNF}
+
+\subsection{From \sr(2,S,R,1) to \sr(P,S,R,W)}
+\sr(n,m,o,p) is at least as difficult as \sr(2,m,o,1) \newline
+
+\ \\
+
+\section{Numeric results}
+
+\begin{center}
+  \begin{tabular}{ | l || c | c | c | }
+    \hline
+    Game & Game length & State-space size & Tree size \\ \hline \hline
+    $\sr(3,1,3,2)$ & $183$ & $2.5\cdot10^{8}$ & $3$ \\ \hline
+    $\sr(4,1,3,2)$ & $328$ & $8.7\cdot10^{10}$ & $3$ \\ \hline
+    $\sr(5,1,3,2)$ & $515$ & $2.6\cdot10^{13}$ & $3$ \\ \hline
+    $\sr(6,1,3,2)$ & $774$ & $7.2\cdot10^{15}$ & $3$ \\ \hline
+    $\sr(7,1,3,2)$ & $1015$ & $1.9\cdot10^{18}$ & $3$ \\ \hline
+    $\sr(8,1,3,2)$ & $1328$ & $4.7\cdot10^{20}$ & $3$ \\ \hline
+    $\sr(9,1,3,2)$ & $1683$ & $1.1\cdot10^{23}$ & $3$ \\ \hline
+    $\sr(10,1,3,2)$ & $2080$ & $2.7\cdot10^{25}$ & $3$ \\ \hline
+    $\sr(11,1,3,2)$ & $2519$ & $6.3\cdot10^{27}$ & $3$ \\ \hline
+    $\sr(12,1,3,2)$ & $3000$ & $1.4\cdot10^{30}$ & $3$ \\ \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \begin{tabular}{ | l || c | c | c | c | }
+    \hline
+    Game & Average game length & Average branching factor & State-space size celling & Tree size celling \\ \hline \hline
+    Tic-Tac-Toe & $9$ & $4$ & $10^{3}$ & $10^{5}$ \\ \hline
+    $\sr(3,1,3,2)$ & ? & ? & $10^{9}$ & $3$ \\ \hline
+    Connect Four & $36$ & $4$ & $10^{13}$ & $10^{21}$ \\ \hline
+    $\sr(6,1,3,2)$ & ? & ? & $10^{16}$ & $3$ \\ \hline
+    Backgammon & $55$ & $250$  & $10^{20}$ & $10^{144}$ \\ \hline
+    $\sr(12,1,3,2)$ & ? & ? & $10^{31}$ & $3$ \\ \hline
+    Chess & $80$ & $36$ & $10^{47}$ & $10^{123}$ \\ \hline
+    
+  \end{tabular}
+\end{center}
+
+
+%\section{Applications}
+
+
+%\section{Conclusion}
+%Skull and Roses is quite challenging by mixing many concepts of game theory, including hidden games, bluff, dependant and successive instances and long term strategy.\\
+
+%Beside its own merits as game, and because of the various aspects of the interactions covered by \sr \ we think that many applications can be found, as in economic or social sciences.\\
+
+
+
+% conference papers do not normally have an appendix
+
+
+% use section* for acknowledgement
+%\section*{Acknowledgment}
+
+
+%The authors would like to thank...
+
+
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+%\begin{thebibliography}{1}
+%
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%
+%  
+%  
+%\end{thebibliography}
+
+
+
+
+% that's all folks
+\end{document}
